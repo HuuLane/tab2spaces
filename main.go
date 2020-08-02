@@ -41,7 +41,17 @@ func main() {
 	// TODO: ignore dot file
 	args := os.Args[1:]
 	if len(args) == 0 {
-		fmt.Println("Which filenames or dir?")
+		fmt.Println("replace clipboard contents")
+		raw, err := clipboard.ReadAll()
+		if err != nil {
+			panic(err)
+		}
+		err = clipboard.WriteAll(strings.ReplaceAll(raw, "	", "    "))
+		if err != nil {
+			panic(err)
+		} else {
+			fmt.Println("Successfully write to your clipboard!")
+		}
 		return
 	}
 	fmt.Println("will read", args)
